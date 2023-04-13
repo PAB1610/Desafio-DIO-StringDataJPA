@@ -17,10 +17,6 @@ public class AlunoController {
     @Autowired
     private AlunoServiceImpl service;
 
-    @GetMapping // para receber dados
-    public List<Aluno> getAll(){
-        return service.getAll();
-    }
 
     @PostMapping //para enviar dados
     public Aluno create(@Valid @RequestBody AlunoForm form){//passando no corpo da requisição o formulário do aluno
@@ -32,6 +28,11 @@ public class AlunoController {
     public List<AvaliacaoFisica> getAllAvaliacaoFisica(@PathVariable Long id){
         return service.getAllAvaliacaoFisicaId(id);
 
+    }
+
+    @GetMapping // para receber dados
+    public List<Aluno> getAll(@RequestParam(value = "dataDeNascimento", required = false) String dataDeNascimento){
+        return service.getAll(dataDeNascimento);
     }
 
 
