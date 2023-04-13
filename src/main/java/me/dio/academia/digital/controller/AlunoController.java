@@ -1,5 +1,6 @@
 package me.dio.academia.digital.controller;
 
+import jakarta.validation.Valid;
 import me.dio.academia.digital.entity.Aluno;
 import me.dio.academia.digital.entity.AvaliacaoFisica;
 import me.dio.academia.digital.entity.form.AlunoForm;
@@ -22,10 +23,10 @@ public class AlunoController {
     }
 
     @PostMapping //para enviar dados
-    public Aluno create(@RequestBody AlunoForm form){//passando no corpo da requisição o formulário do aluno
+    public Aluno create(@Valid @RequestBody AlunoForm form){//passando no corpo da requisição o formulário do aluno
         return service.create(form);
     }
-
+        //notacao @Valid valida os dados no formulario para serem salvos de acordo com o padrão de validação definido
 
     @GetMapping("avaliacoes/{id}")
     public List<AvaliacaoFisica> getAllAvaliacaoFisica(@PathVariable Long id){

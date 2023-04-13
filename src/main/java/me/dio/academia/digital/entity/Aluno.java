@@ -13,9 +13,9 @@ import java.util.List;
 
 @Data //anotacao do lombok - dependencia inserida no projeto que abstrai os métodos
       //get, set, equals e rashCode - com isso não é preciso escrevê-los
-@NoArgsConstructor //cria um construtor vazio necessário ao hibernate
-@AllArgsConstructor //cria um construtor com todos os atributos
-@Entity //anotação para fazer a persistencia do BD. Ela é que diz para o Banco que esta classe "Aluno" é uma tabela dele
+@NoArgsConstructor //anotacao do lombok - cria um construtor vazio necessário ao hibernate
+@AllArgsConstructor //anotacao do lombok - cria um construtor com todos os atributos
+@Entity //anotação para fazer a persistencia do BD. Ela é que diz para o Banco que esta classe "Aluno" é uma tabela dele. Ela exige um @ID
 @Table(name = "tb_alunos") //define o nome que sera dado a tabela no Banco de Dados academia
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) // esta notação é necessária por causa desta outra notação (@OneToMany(mappedBy = "aluno", fetch = FetchType.LAZY))
 public class Aluno {
@@ -36,8 +36,9 @@ public class Aluno {
   private LocalDate dataDeNascimento;
 
 
+              /**relacionamento entre tabelas e ou classes*/
   @OneToMany(mappedBy = "aluno", fetch = FetchType.LAZY) // define o relacionamento com a AtividadeFisica e entre as tabelas no Banco de dados. É a relação "Um para vários" - ou seja - um aluno terá várias avaliações físicas
-            //mappedBy = "aluno", fetch = FetchType.LAZY - carregamento de informações será feita apenas quando solicitado
+            //mappedBy = "aluno", fetch = FetchType.LAZY - carregamento de todas as informações menos desta lista. O carregamento desta lista ocorrerá apenas quando solicitado
   @JsonIgnore //tratamento para possiveis exceptions Json de geração de dados (por exemplo, laço infinito)
   private List<AvaliacaoFisica> avaliacoes = new ArrayList<>();
 
